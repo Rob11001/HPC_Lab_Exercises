@@ -1,6 +1,6 @@
 #!/bin/bash
-files=()
-sizes=(10000)
+files=("histogram_counting" "histogram_counting_v1" "histogram_counting_v2")
+sizes=(2560000 5120000 10240000 20480000 40960000)
 tests=3
 csv="benchmark"
 
@@ -11,7 +11,7 @@ done
 
 for file in "${files[@]}"; do   
     # Creazione Headers nel file di output
-    filename="${csv}_${file}_with_flag.csv"
+    filename="${csv}_${file}_16.csv"
     echo "N, t1, t2, t3" >> ${filename}
 
     for size in "${sizes[@]}"; do
