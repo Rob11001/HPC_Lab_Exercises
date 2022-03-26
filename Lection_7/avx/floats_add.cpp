@@ -6,27 +6,18 @@
 /**
  * @brief 
  * 
- * Histogram counting: 
- * 
- * Given an array of N random integers in [1,100], implement a parallel algorithm that counts how many elements fall in each bucket: 
-    - [1,10]
-    - [11, 20]
-    - [21,30] 
-    - ...
-    - [91,100]
+ * Adds two array of N floating point numbers
  */
 
-//#define DEBUG 
+#define DEBUG 
 
 int main(int argc, char **argv) {
-    int N;
-    int counts[10] = {0};
-
     using std::chrono::high_resolution_clock;
-    using std::chrono::duration_cast;
     using std::chrono::duration;
     using std::chrono::milliseconds;
-
+    int N;
+    float *a, *b, *c;
+    
     if(argc != 2) {
         fprintf(stderr, "Usage: %s <N>\n", argv[0]);
         return EXIT_FAILURE;
@@ -34,21 +25,27 @@ int main(int argc, char **argv) {
 
     // Size
     N = atoi(argv[1]);
-    int *random_numbers = (int *) malloc(sizeof(int) * N);
 
+    // Array allocation
+    a = (float *) malloc(sizeof(float) * N);
+    b = (float *) malloc(sizeof(float) * N);
+    c = (float *) malloc(sizeof(float) * N);
+    
     // srand initialization
 	srand((unsigned int) time(0));
     
-    for(int i = 0; i < N; i++)
-        random_numbers[i] = rand() % 100 + 1;
+    // Array initialization
+    for(int i = 0; i < N; i++) {
+        a[i] = rand() % 10;
+        b[i] = rand() % 10;
+        c[i] = 0;
+    }
 
     // Begin time
     auto begin = high_resolution_clock::now();
 
-    for(int i = 0; i < N; i++) {
-        int index = (random_numbers[i] % 10 == 0) ? random_numbers[i] / 10 - 1 : random_numbers[i] / 10;
-        counts[index] += 1;
-    }
+    for(int i = 0; i < N; i++)
+        c[i] = a[i] + b[i];
 
     // End time
     auto end = high_resolution_clock::now();
@@ -57,17 +54,27 @@ int main(int argc, char **argv) {
 
     #ifdef DEBUG
         for (int i = 0; i < N; i++)
-            printf("A[%d]=%d ", i, random_numbers[i]);
+            printf("a[%d]=%.2f ", i, a[i]);
         printf("\n");
-        for (int i = 0; i < 10; i++)
-            printf("counts[%d]=%d ", i, counts[i]);
+        
+        for (int i = 0; i < N; i++)
+            printf("b[%d]=%.2f ", i, b[i]);
         printf("\n");
+        
+        for (int i = 0; i < N; i++)
+            printf("c[%d]=%.2f ", i, c[i]);
+        printf("\n");
+
         printf("Time: %f\n", time);
     #endif
 
     #ifndef DEBUG
         printf("%f", time);
     #endif
+
+    free(a);
+    free(b);
+    free(c);
 
     return 0;
 }
