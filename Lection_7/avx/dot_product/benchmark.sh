@@ -1,12 +1,12 @@
 #!/bin/bash
-files=("floats_add_avx")
+files=("dot_product" "dot_product_avx")
 sizes=(67108864 134217728 268435456 536870912)
 tests=3
 csv="benchmark"
 
 # Compilazione file C
 for file in "${files[@]}"; do
-    echo `g++ -o ${file}.out ${file}.cpp -mavx`;
+    echo `g++ -o ${file}.out ${file}.cpp -mfma -mavx -O0`;
 done
 
 for file in "${files[@]}"; do   

@@ -7,7 +7,7 @@
 /**
  * @brief 
  * 
- * Adds two array of N floating point numbers using intrinsic operations
+ * Adds two array of N floating point numbers using intrinsic operations using malloc allocation
  */
 
 //#define DEBUG 
