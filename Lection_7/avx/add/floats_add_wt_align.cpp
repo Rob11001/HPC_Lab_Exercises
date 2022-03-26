@@ -10,7 +10,7 @@
  * Adds two array of N floating point numbers using intrinsic operations
  */
 
-#define DEBUG 
+//#define DEBUG 
 
 int main(int argc, char **argv) {
     using std::chrono::high_resolution_clock;
