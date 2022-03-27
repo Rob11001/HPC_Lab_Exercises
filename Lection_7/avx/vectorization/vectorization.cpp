@@ -10,7 +10,7 @@
  * A simple for to vectorize
  */
 
-#define DEBUG 
+//#define DEBUG 
 
 int main(int argc, char **argv) {
     using std::chrono::high_resolution_clock;
@@ -52,14 +52,6 @@ int main(int argc, char **argv) {
         
         __m256i mask = _mm256_max_epu8(vector_1, static_vector); // take the max
         mask = _mm256_cmpeq_epi8(mask, static_vector); // if 200 is the max has 255, 0 otherwise
-        unsigned char *t = (unsigned char *)aligned_alloc(32, sizeof(unsigned char) * 32);
-        t = (unsigned char *) &mask;
-        for(int j = 0; j < 32; j++) {
-            printf("%d ", t[j]);
-
-        }
-        printf("\n\n");
-
 
         __m256i result = _mm256_blendv_epi8(vector_2, vector_1, mask); // if the mask is 255 takes vector_1 value, otherwise vector_2
         _mm256_store_si256((__m256i *) (img_out + i), result);
