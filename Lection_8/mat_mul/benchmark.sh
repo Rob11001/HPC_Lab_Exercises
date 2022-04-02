@@ -1,0 +1,27 @@
+#!/bin/bash
+files=("mat_mul_base" "mat_mul_simd" "mat_mul_intrinsics")
+sizes=(1024 2048 4096)
+tests=3
+csv="benchmark"
+
+# Compilazione file C
+for file in "${files[@]}"; do
+    echo `g++ -o ${file}.out ${file}.cpp -fopenmp -mavx2 -O0`;
+done
+
+for file in "${files[@]}"; do   
+    # Creazione Headers nel file di output
+    filename="${csv}_${file}.csv"
+    echo "N, t1, t2, t3" >> ${filename}
+
+    for size in "${sizes[@]}"; do
+        line="${size}, "
+        for ((i=0;i<${tests};i++)); do
+            last_time=`./${file}.out ${size} 16` 
+            line="${line}${last_time}, "  
+            echo "Algoritmo {$file} size: ${size} test: ${i} time: ${last_time}"
+        done
+        end=$(( ${#line} - 2 ))
+        echo "${line:0:${end}}" >> ${filename}
+    done
+done
