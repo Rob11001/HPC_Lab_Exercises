@@ -19,7 +19,8 @@
         {
             "name": "Linux",
             "includePath": [
-                "${workspaceFolder}/**"
+                "/root/sycl_workspace/llvm/sycl/include/*",
+                "/root/sycl_workspace/llvm/build/include/sycl/**"
             ],
             "defines": [
                 "_DEBUG",
@@ -27,9 +28,9 @@
                 "_UNICODE"
             ],
             "windowsSdkVersion": "10.0.19041.0",
-            "cStandard": "c11",
-            "cppStandard": "c++11",
-            "intelliSenseMode": "linux-gcc-x64",
+            "cStandard": "c17",
+            "cppStandard": "c++20",
+            "intelliSenseMode": "${default}",
             "compilerArgs": [],
             "mergeConfigurations": false,
             "browse": {
@@ -37,7 +38,8 @@
                     "${workspaceFolder}/**"
                 ],
                 "limitSymbolsToIncludedHeaders": true
-            }
+            },
+            "compilerPath": "/root/sycl_workspace/llvm/build/bin/clang++"
         }
     ],
     "version": 4
